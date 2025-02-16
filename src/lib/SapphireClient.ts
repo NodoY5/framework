@@ -1,7 +1,10 @@
 import { container, Store, StoreRegistry } from '@sapphire/pieces';
 import type { Awaitable } from '@sapphire/utilities';
 import { Client, type ClientOptions, type Message, type Snowflake } from 'discord.js';
-import { join } from 'path';
+import type { URL } from 'node:url';
+import { loadApplicationCommandRegistriesListeners } from '../optional-listeners/application-command-registries-listeners/_load';
+import { loadErrorListeners } from '../optional-listeners/error-listeners/_load';
+import { loadMessageCommandListeners } from '../optional-listeners/message-command-listeners/_load';
 import type { Plugin } from './plugins/Plugin';
 import { PluginManager } from './plugins/PluginManager';
 import { ArgumentStore } from './structures/ArgumentStore';
@@ -14,6 +17,11 @@ import { Events } from './types/Events';
 import { acquire } from './utils/application-commands/ApplicationCommandRegistries';
 import { LogLevel, type ILogger } from './utils/logger/ILogger';
 import { Logger } from './utils/logger/Logger';
+
+// Load built-in pieces
+import '../arguments/_load';
+import '../listeners/_load';
+import '../preconditions/_load';
 
 container.applicationCommandRegistries = { acquire };
 
@@ -31,9 +39,9 @@ export interface SapphirePrefixHook {
 
 export interface SapphireClientOptions {
 	/**
-	 * The base user directory, if set to `null`, Sapphire will not call {@link StoreRegistry.registerPath},
-	 * meaning that you will need to manually set each folder for each store. Please read the aforementioned method's
-	 * documentation for more information.
+	 * The base user directory, if set to `null`, Sapphire will not call {@linkcode StoreRegistry.registerPath()},
+	 * meaning that you will need to manually set each folder for each store or use {@linkcode StoreRegistry.loadPiece()}.
+	 * Please read the aforementioned methods' documentation for more information.
 	 * @since 1.0.0
 	 * @default undefined
 	 */
@@ -171,7 +179,7 @@ export interface SapphireClientOptions {
  * Sapphire also automatically detects the folders to scan for pieces, please read {@link StoreRegistry.registerPath}
  * for reference. This method is called at the start of the {@link SapphireClient.login} method.
  *
- * @see {@link SapphireClientOptions} for all options available to the Sapphire Client. You can also provide all of discord.js' [ClientOptions](https://old.discordjs.dev/#/docs/discord.js/main/typedef/ClientOptions)
+ * @see {@link SapphireClientOptions} for all options available to the Sapphire Client. You can also provide all of discord.js' [ClientOptions](https://discord.js.org/docs/packages/discord.js/main/ClientOptions:Interface)
  *
  * @since 1.0.0
  * @example
@@ -285,8 +293,7 @@ export class SapphireClient<Ready extends boolean = boolean> extends Client<Read
 			Store.logger = container.logger.trace.bind(container.logger);
 		}
 
-		this.stores = new StoreRegistry();
-		container.stores = this.stores;
+		this.stores = container.stores;
 
 		this.fetchPrefix = options.fetchPrefix ?? (() => this.options.defaultPrefix ?? null);
 		this.disableMentionPrefix = options.disableMentionPrefix;
@@ -299,24 +306,22 @@ export class SapphireClient<Ready extends boolean = boolean> extends Client<Read
 		this.id = options.id ?? null;
 
 		this.stores
-			.register(new ArgumentStore().registerPath(join(__dirname, '..', 'arguments'))) //
+			.register(new ArgumentStore()) //
 			.register(new CommandStore())
 			.register(new InteractionHandlerStore())
-			.register(new ListenerStore().registerPath(join(__dirname, '..', 'listeners')))
-			.register(new PreconditionStore().registerPath(join(__dirname, '..', 'preconditions')));
-
-		const optionalListenersPath = join(__dirname, '..', 'optional-listeners');
+			.register(new ListenerStore())
+			.register(new PreconditionStore());
 
 		if (options.loadApplicationCommandRegistriesStatusListeners !== false) {
-			this.stores.get('listeners').registerPath(join(optionalListenersPath, 'application-command-registries-listeners'));
+			loadApplicationCommandRegistriesListeners();
 		}
 
 		if (options.loadDefaultErrorListeners !== false) {
-			this.stores.get('listeners').registerPath(join(optionalListenersPath, 'error-listeners'));
+			loadErrorListeners();
 		}
 
 		if (options.loadMessageCommandListeners === true) {
-			this.stores.get('listeners').registerPath(join(optionalListenersPath, 'message-command-listeners'));
+			loadMessageCommandListeners();
 		}
 
 		for (const plugin of SapphireClient.plugins.values(PluginHook.PostInitialization)) {
@@ -392,7 +397,6 @@ declare module '@sapphire/pieces' {
 	interface Container {
 		client: SapphireClient;
 		logger: ILogger;
-		stores: StoreRegistry;
 		applicationCommandRegistries: {
 			acquire: typeof acquire;
 		};

@@ -1,8 +1,8 @@
 import { Listener } from '../../lib/structures/Listener';
 import { Events } from '../../lib/types/Events';
 
-export class CoreEvent extends Listener<typeof Events.ApplicationCommandRegistriesInitialising> {
-	public constructor(context: Listener.Context) {
+export class CoreListener extends Listener<typeof Events.ApplicationCommandRegistriesInitialising> {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.ApplicationCommandRegistriesInitialising, once: true });
 	}
 

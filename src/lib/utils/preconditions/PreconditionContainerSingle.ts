@@ -3,8 +3,8 @@ import { err } from '@sapphire/result';
 import type { ChatInputCommandInteraction, ContextMenuCommandInteraction, Message } from 'discord.js';
 import { Identifiers } from '../../errors/Identifiers';
 import { UserError } from '../../errors/UserError';
-import type { ChatInputCommand, ContextMenuCommand, MessageCommand } from '../../structures/Command';
 import type { Precondition, PreconditionContext, PreconditionKeys, Preconditions, SimplePreconditionKeys } from '../../structures/Precondition';
+import type { ChatInputCommand, ContextMenuCommand, MessageCommand } from '../../types/CommandTypes';
 import type { IPreconditionContainer } from './IPreconditionContainer';
 
 /**
@@ -89,7 +89,7 @@ export class PreconditionContainerSingle implements IPreconditionContainer {
 				: precondition.error({
 						identifier: Identifiers.PreconditionMissingMessageHandler,
 						message: `The precondition "${precondition.name}" is missing a "messageRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 		}
 		return err(new UserError({ identifier: Identifiers.PreconditionUnavailable, message: `The precondition "${this.name}" is not available.` }));
 	}
@@ -109,7 +109,7 @@ export class PreconditionContainerSingle implements IPreconditionContainer {
 				: precondition.error({
 						identifier: Identifiers.PreconditionMissingChatInputHandler,
 						message: `The precondition "${precondition.name}" is missing a "chatInputRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 		}
 		return err(new UserError({ identifier: Identifiers.PreconditionUnavailable, message: `The precondition "${this.name}" is not available.` }));
 	}
@@ -129,7 +129,7 @@ export class PreconditionContainerSingle implements IPreconditionContainer {
 				: precondition.error({
 						identifier: Identifiers.PreconditionMissingContextMenuHandler,
 						message: `The precondition "${precondition.name}" is missing a "contextMenuRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 		}
 		return err(new UserError({ identifier: Identifiers.PreconditionUnavailable, message: `The precondition "${this.name}" is not available.` }));
 	}

@@ -1,5 +1,14 @@
+import { container } from '@sapphire/pieces';
 import { RateLimitManager } from '@sapphire/ratelimits';
-import type { ChatInputCommandInteraction, CommandInteraction, ContextMenuCommandInteraction, Message, Snowflake } from 'discord.js';
+import {
+	TimestampStyles,
+	time,
+	type ChatInputCommandInteraction,
+	type CommandInteraction,
+	type ContextMenuCommandInteraction,
+	type Message,
+	type Snowflake
+} from 'discord.js';
 import { Identifiers } from '../lib/errors/Identifiers';
 import type { Command } from '../lib/structures/Command';
 import { AllFlowsPrecondition } from '../lib/structures/Precondition';
@@ -13,7 +22,7 @@ export interface CooldownPreconditionContext extends AllFlowsPrecondition.Contex
 }
 
 export class CorePrecondition extends AllFlowsPrecondition {
-	public buckets = new WeakMap<Command, RateLimitManager<string>>();
+	public buckets: WeakMap<Command, RateLimitManager<string>> = new WeakMap<Command, RateLimitManager<string>>();
 
 	public messageRun(message: Message, command: Command, context: CooldownPreconditionContext): AllFlowsPrecondition.Result {
 		const cooldownId = this.getIdFromMessage(message, context);
@@ -61,12 +70,11 @@ export class CorePrecondition extends AllFlowsPrecondition {
 
 		if (rateLimit.limited) {
 			const remaining = rateLimit.remainingTime;
+			const nextAvailable = time(Math.floor(rateLimit.expires / 1000), TimestampStyles.RelativeTime);
 
 			return this.error({
 				identifier: Identifiers.PreconditionCooldown,
-				message: `There is a cooldown in effect for this ${commandType} command. It'll be available at ${new Date(
-					rateLimit.expires
-				).toISOString()}.`,
+				message: `There is a cooldown in effect for this ${commandType} command. It'll be available ${nextAvailable}.`,
 				context: { remaining }
 			});
 		}
@@ -80,9 +88,9 @@ export class CorePrecondition extends AllFlowsPrecondition {
 			case BucketScope.Global:
 				return 'global';
 			case BucketScope.Channel:
-				return message.channel.id;
+				return message.channelId;
 			case BucketScope.Guild:
-				return message.guild?.id ?? message.channel.id;
+				return message.guildId ?? message.channelId;
 			default:
 				return message.author.id;
 		}
@@ -110,3 +118,9 @@ export class CorePrecondition extends AllFlowsPrecondition {
 		return manager;
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'Cooldown',
+	piece: CorePrecondition,
+	store: 'preconditions'
+});

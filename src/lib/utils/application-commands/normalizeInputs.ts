@@ -14,7 +14,10 @@ import {
 } from 'discord-api-types/v10';
 import {
 	ApplicationCommand,
+	PermissionsBitField,
+	type ApplicationIntegrationType,
 	type ChatInputApplicationCommandData,
+	type InteractionContextType,
 	type MessageApplicationCommandData,
 	type UserApplicationCommandData
 } from 'discord.js';
@@ -32,20 +35,14 @@ function isBuilder(
 function addDefaultsToChatInputJSON(data: RESTPostAPIChatInputApplicationCommandsJSONBody): RESTPostAPIChatInputApplicationCommandsJSONBody {
 	data.dm_permission ??= true;
 	data.type ??= ApplicationCommandType.ChatInput;
-
-	// Localizations default to null from d.js
-	data.name_localizations ??= null;
-	data.description_localizations ??= null;
+	data.default_member_permissions ??= null;
 
 	return data;
 }
 
 function addDefaultsToContextMenuJSON(data: RESTPostAPIContextMenuApplicationCommandsJSONBody): RESTPostAPIContextMenuApplicationCommandsJSONBody {
 	data.dm_permission ??= true;
-
-	// Localizations default to null from d.js
-	data.name_localizations ??= null;
-	data.description_localizations ??= null;
+	data.default_member_permissions ??= null;
 
 	return data;
 }
@@ -75,11 +72,15 @@ export function normalizeChatInputCommand(
 		description: command.description,
 		description_localizations: command.descriptionLocalizations,
 		type: ApplicationCommandType.ChatInput,
-		dm_permission: command.dmPermission
+		dm_permission: command.dmPermission,
+		nsfw: command.nsfw,
+		integration_types: command.integrationTypes as ApplicationIntegrationType[] | undefined,
+		contexts: command.contexts as InteractionContextType[] | undefined
 	};
 
-	if (command.defaultMemberPermissions) {
-		finalObject.default_member_permissions = String(command.defaultMemberPermissions);
+	if (typeof command.defaultMemberPermissions !== 'undefined') {
+		finalObject.default_member_permissions =
+			command.defaultMemberPermissions === null ? null : new PermissionsBitField(command.defaultMemberPermissions).bitfield.toString();
 	}
 
 	if (command.options?.length) {
@@ -109,12 +110,18 @@ export function normalizeContextMenuCommand(
 	const finalObject: RESTPostAPIContextMenuApplicationCommandsJSONBody = {
 		name: command.name,
 		name_localizations: command.nameLocalizations,
+		// TODO (favna 2024-10-19): Remove this line after discord.js has been updated past 14.16.3
+		// @ts-ignore temporarily ignore the error because discord.js broke types
 		type: command.type,
-		dm_permission: command.dmPermission
+		dm_permission: command.dmPermission,
+		nsfw: command.nsfw,
+		integration_types: command.integrationTypes as ApplicationIntegrationType[] | undefined,
+		contexts: command.contexts as InteractionContextType[] | undefined
 	};
 
-	if (command.defaultMemberPermissions) {
-		finalObject.default_member_permissions = String(command.defaultMemberPermissions);
+	if (typeof command.defaultMemberPermissions !== 'undefined') {
+		finalObject.default_member_permissions =
+			command.defaultMemberPermissions === null ? null : new PermissionsBitField(command.defaultMemberPermissions).bitfield.toString();
 	}
 
 	return addDefaultsToContextMenuJSON(finalObject);
@@ -124,12 +131,12 @@ export function convertApplicationCommandToApiData(command: ApplicationCommand):
 	const returnData = {
 		name: command.name,
 		name_localizations: command.nameLocalizations,
-		dm_permission: command.dmPermission
+		dm_permission: command.dmPermission,
+		nsfw: command.nsfw,
+		default_member_permissions: command.defaultMemberPermissions?.bitfield.toString() ?? null,
+		integration_types: command.integrationTypes,
+		contexts: command.contexts
 	} as RESTPostAPIApplicationCommandsJSONBody;
-
-	if (command.defaultMemberPermissions) {
-		returnData.default_member_permissions = command.defaultMemberPermissions.bitfield.toString();
-	}
 
 	if (command.type === ApplicationCommandType.ChatInput) {
 		returnData.type = ApplicationCommandType.ChatInput;

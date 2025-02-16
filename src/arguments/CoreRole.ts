@@ -1,11 +1,11 @@
-import type { PieceContext } from '@sapphire/pieces';
+import { container } from '@sapphire/pieces';
 import type { Role } from 'discord.js';
 import { Identifiers } from '../lib/errors/Identifiers';
 import { resolveRole } from '../lib/resolvers/role';
 import { Argument } from '../lib/structures/Argument';
 
 export class CoreArgument extends Argument<Role> {
-	public constructor(context: PieceContext) {
+	public constructor(context: Argument.LoaderContext) {
 		super(context, { name: 'role' });
 	}
 
@@ -31,3 +31,9 @@ export class CoreArgument extends Argument<Role> {
 		);
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'role',
+	piece: CoreArgument,
+	store: 'arguments'
+});

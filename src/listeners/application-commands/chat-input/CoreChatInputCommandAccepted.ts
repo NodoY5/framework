@@ -1,10 +1,11 @@
+import { container } from '@sapphire/pieces';
 import { Result } from '@sapphire/result';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Listener } from '../../../lib/structures/Listener';
 import { Events, type ChatInputCommandAcceptedPayload } from '../../../lib/types/Events';
 
 export class CoreListener extends Listener<typeof Events.ChatInputCommandAccepted> {
-	public constructor(context: Listener.Context) {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.ChatInputCommandAccepted });
 	}
 
@@ -32,3 +33,9 @@ export class CoreListener extends Listener<typeof Events.ChatInputCommandAccepte
 		});
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'CoreChatInputCommandAccepted',
+	piece: CoreListener,
+	store: 'listeners'
+});

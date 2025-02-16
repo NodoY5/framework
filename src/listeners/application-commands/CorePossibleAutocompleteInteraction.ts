@@ -1,10 +1,11 @@
+import { container } from '@sapphire/pieces';
 import type { AutocompleteInteraction } from 'discord.js';
-import type { AutocompleteCommand } from '../../lib/structures/Command';
 import { Listener } from '../../lib/structures/Listener';
+import type { AutocompleteCommand } from '../../lib/types/CommandTypes';
 import { Events } from '../../lib/types/Events';
 
 export class CoreListener extends Listener<typeof Events.PossibleAutocompleteInteraction> {
-	public constructor(context: Listener.Context) {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.PossibleAutocompleteInteraction });
 	}
 
@@ -38,3 +39,9 @@ export class CoreListener extends Listener<typeof Events.PossibleAutocompleteInt
 		await this.container.stores.get('interaction-handlers').run(interaction);
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'CorePossibleAutocompleteInteraction',
+	piece: CoreListener,
+	store: 'listeners'
+});

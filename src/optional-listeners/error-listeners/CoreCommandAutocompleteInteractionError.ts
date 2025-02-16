@@ -1,8 +1,8 @@
 import { Listener } from '../../lib/structures/Listener';
 import { Events, type AutocompleteInteractionPayload } from '../../lib/types/Events';
 
-export class CoreEvent extends Listener<typeof Events.CommandAutocompleteInteractionError> {
-	public constructor(context: Listener.Context) {
+export class CoreListener extends Listener<typeof Events.CommandAutocompleteInteractionError> {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.CommandAutocompleteInteractionError });
 	}
 

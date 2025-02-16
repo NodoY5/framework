@@ -1,4 +1,5 @@
 import { isVoiceChannel } from '@sapphire/discord.js-utilities';
+import { container } from '@sapphire/pieces';
 import type { ChatInputCommandInteraction, ContextMenuCommandInteraction, Message } from 'discord.js';
 import { Identifiers } from '../lib/errors/Identifiers';
 import { AllFlowsPrecondition } from '../lib/structures/Precondition';
@@ -20,9 +21,14 @@ export class CorePrecondition extends AllFlowsPrecondition {
 
 	private makeSharedError(): AllFlowsPrecondition.Result {
 		return this.error({
-			// eslint-disable-next-line deprecation/deprecation
 			identifier: Identifiers.PreconditionGuildVoiceOnly,
 			message: 'You can only run this command in server voice channels.'
 		});
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'GuildVoiceOnly',
+	piece: CorePrecondition,
+	store: 'preconditions'
+});

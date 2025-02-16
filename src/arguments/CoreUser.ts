@@ -1,10 +1,10 @@
-import type { PieceContext } from '@sapphire/pieces';
+import { container } from '@sapphire/pieces';
 import type { User } from 'discord.js';
 import { resolveUser } from '../lib/resolvers/user';
 import { Argument } from '../lib/structures/Argument';
 
 export class CoreArgument extends Argument<User> {
-	public constructor(context: PieceContext) {
+	public constructor(context: Argument.LoaderContext) {
 		super(context, { name: 'user' });
 	}
 
@@ -20,3 +20,9 @@ export class CoreArgument extends Argument<User> {
 		);
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'user',
+	piece: CoreArgument,
+	store: 'arguments'
+});

@@ -1,4 +1,5 @@
 import { AliasStore } from '@sapphire/pieces';
+import type { Args } from '../parsers/Args';
 import { RegisterBehavior } from '../types/Enums';
 import {
 	allGuildIdsToFetchCommandsFor,
@@ -14,7 +15,7 @@ import { Command } from './Command';
  * Stores all Command pieces
  * @since 1.0.0
  */
-export class CommandStore extends AliasStore<Command> {
+export class CommandStore extends AliasStore<Command, 'commands'> {
 	public constructor() {
 		super(Command, { name: 'commands' });
 	}
@@ -28,7 +29,7 @@ export class CommandStore extends AliasStore<Command> {
 		return [...categories] as string[];
 	}
 
-	public override unload(name: string | Command) {
+	public override unload(name: string | Command): Promise<Command<Args, Command.Options>> {
 		const piece = this.resolve(name);
 
 		// Remove the aliases from the store

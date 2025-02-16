@@ -2,10 +2,10 @@ import { Store } from '@sapphire/pieces';
 import { Result } from '@sapphire/result';
 import type { ChatInputCommandInteraction, ContextMenuCommandInteraction, Message } from 'discord.js';
 import { Identifiers } from '../errors/Identifiers';
-import type { ChatInputCommand, ContextMenuCommand, MessageCommand } from './Command';
+import type { ChatInputCommand, ContextMenuCommand, MessageCommand } from '../types/CommandTypes';
 import { Precondition, type AsyncPreconditionResult } from './Precondition';
 
-export class PreconditionStore extends Store<Precondition> {
+export class PreconditionStore extends Store<Precondition, 'preconditions'> {
 	private readonly globalPreconditions: Precondition[] = [];
 
 	public constructor() {
@@ -19,7 +19,7 @@ export class PreconditionStore extends Store<Precondition> {
 				: await precondition.error({
 						identifier: Identifiers.PreconditionMissingMessageHandler,
 						message: `The precondition "${precondition.name}" is missing a "messageRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 
 			if (result.isErr()) {
 				return result;
@@ -40,7 +40,7 @@ export class PreconditionStore extends Store<Precondition> {
 				: await precondition.error({
 						identifier: Identifiers.PreconditionMissingChatInputHandler,
 						message: `The precondition "${precondition.name}" is missing a "chatInputRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 
 			if (result.isErr()) {
 				return result;
@@ -61,7 +61,7 @@ export class PreconditionStore extends Store<Precondition> {
 				: await precondition.error({
 						identifier: Identifiers.PreconditionMissingContextMenuHandler,
 						message: `The precondition "${precondition.name}" is missing a "contextMenuRun" handler, but it was requested for the "${command.name}" command.`
-				  });
+					});
 
 			if (result.isErr()) {
 				return result;

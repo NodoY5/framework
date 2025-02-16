@@ -1,9 +1,9 @@
-import type { PieceContext } from '@sapphire/pieces';
+import { container } from '@sapphire/pieces';
 import { resolveEmoji, type EmojiObject } from '../lib/resolvers/emoji';
 import { Argument } from '../lib/structures/Argument';
 
 export class CoreArgument extends Argument<EmojiObject> {
-	public constructor(context: PieceContext) {
+	public constructor(context: Argument.LoaderContext) {
 		super(context, { name: 'emoji' });
 	}
 
@@ -19,3 +19,9 @@ export class CoreArgument extends Argument<EmojiObject> {
 		);
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'emoji',
+	piece: CoreArgument,
+	store: 'arguments'
+});

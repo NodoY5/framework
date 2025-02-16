@@ -1,10 +1,11 @@
+import { container } from '@sapphire/pieces';
 import { Result } from '@sapphire/result';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Listener } from '../../../lib/structures/Listener';
 import { Events, type ContextMenuCommandAcceptedPayload } from '../../../lib/types/Events';
 
 export class CoreListener extends Listener<typeof Events.ContextMenuCommandAccepted> {
-	public constructor(context: Listener.Context) {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.ContextMenuCommandAccepted });
 	}
 
@@ -32,3 +33,9 @@ export class CoreListener extends Listener<typeof Events.ContextMenuCommandAccep
 		});
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'CoreContextMenuCommandAccepted',
+	piece: CoreListener,
+	store: 'listeners'
+});

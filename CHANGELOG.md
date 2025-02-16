@@ -2,6 +2,219 @@
 
 All notable changes to this project will be documented in this file.
 
+# [5.3.2](https://github.com/sapphiredev/framework/compare/v5.3.1...v5.3.2) - (2025-01-05)
+
+## 🐛 Bug Fixes
+
+- Update `@sapphire/discord-utilities` and `@sapphire/discord.js-utilities` ([7771726](https://github.com/sapphiredev/framework/commit/77717269fb452983aa0bbe6d790660d77335cf2b))
+- **deps:** Update all non-major dependencies ([e896558](https://github.com/sapphiredev/framework/commit/e8965588a68d4b18d5699a47acb97849a9deb4f2)) ([#807](https://github.com/sapphiredev/framework/pull/807) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([59905eb](https://github.com/sapphiredev/framework/commit/59905ebd7f4ba46e4aafa096a012bf5d1c4556cb)) ([#798](https://github.com/sapphiredev/framework/pull/798) by @renovate[bot])
+
+# [5.3.1](https://github.com/sapphiredev/framework/compare/v5.3.0...v5.3.1) - (2024-11-04)
+
+## 🐛 Bug Fixes
+
+- **ClientPermissions:** Check app permissions when used with user apps ([ebdf0f7](https://github.com/sapphiredev/framework/commit/ebdf0f7b81344ed78424be56d1a53d8d839c8b89)) ([#797](https://github.com/sapphiredev/framework/pull/797) by @yuansheng1549)
+
+# [5.3.0](https://github.com/sapphiredev/framework/compare/v5.2.1...v5.3.0) - (2024-11-02)
+
+## 🐛 Bug Fixes
+
+- Update sapphire dependencies ([e5d6763](https://github.com/sapphiredev/framework/commit/e5d67631235443400618ad7fa05f5f3c7177150f)) ([#794](https://github.com/sapphiredev/framework/pull/794) by @favna)
+- **RunIn:** Show the correct command type when throwing error ([40967b3](https://github.com/sapphiredev/framework/commit/40967b3622ab802f4d5f77e4dd10a9e8327d0c26)) ([#783](https://github.com/sapphiredev/framework/pull/783) by @yuansheng1549)
+- **compute-difference:** Ensure tsup outputs correct import code ([86698fc](https://github.com/sapphiredev/framework/commit/86698fcf02f5112e08c798a2989d0e88d15e0ea0)) ([#781](https://github.com/sapphiredev/framework/pull/781) by @favna)
+- Use a custom instance of TwemojiRegex for validators and reset lastIndex ([fe2405d](https://github.com/sapphiredev/framework/commit/fe2405d44fce8fccc8b419b75bef99c8e37d61b7)) ([#779](https://github.com/sapphiredev/framework/pull/779) by @vladfrangu)
+- Bump @sapphire/utilities ([7c21798](https://github.com/sapphiredev/framework/commit/7c217982b0ac9b341b5c1aa803d3e469c903498c))
+- **deps:** Update all non-major dependencies ([d13ac35](https://github.com/sapphiredev/framework/commit/d13ac3572fb4689bcc421edc22da05ae8d7253a5)) ([#768](https://github.com/sapphiredev/framework/pull/768) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([23c4517](https://github.com/sapphiredev/framework/commit/23c45176986729758a8112d7f1d67046ef3797ff)) ([#760](https://github.com/sapphiredev/framework/pull/760) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([e6f90e2](https://github.com/sapphiredev/framework/commit/e6f90e21fcfefc9f382010391fa93775a9c232eb)) ([#756](https://github.com/sapphiredev/framework/pull/756) by @renovate[bot])
+- **deps:** Update all non-major dependencies ([3654d37](https://github.com/sapphiredev/framework/commit/3654d37f0fcbeab869d752f5f913ea8af72d3b56)) ([#753](https://github.com/sapphiredev/framework/pull/753) by @renovate[bot])
+
+## 📝 Documentation
+
+- Fix typo in CommandTypes.ts ([0fcfc2a](https://github.com/sapphiredev/framework/commit/0fcfc2a0e8b90da0338ed927213e49d542eee4d7)) ([#778](https://github.com/sapphiredev/framework/pull/778) by @Krumbit)
+
+## 🚀 Features
+
+- Add support for user-installable apps ([e783074](https://github.com/sapphiredev/framework/commit/e783074b6c321f6ee62bf211a3df7e51cafbc302)) ([#782](https://github.com/sapphiredev/framework/pull/782) by @SerenModz21)
+
+# [5.2.1](https://github.com/sapphiredev/framework/compare/v5.2.0...v5.2.1) - (2024-05-06)
+
+## 🐛 Bug Fixes
+
+- **permissions:** Add permissions added by DJS 14.5.2 ([7d6a301](https://github.com/sapphiredev/framework/commit/7d6a3015009364cce300730099d1552ee3bb616a))
+- **deps:** Update all non-major dependencies ([22f7729](https://github.com/sapphiredev/framework/commit/22f7729ce60fed7be1bda45272288862c76120d8))
+
+# [5.2.0](https://github.com/sapphiredev/framework/compare/v5.1.0...v5.2.0) - (2024-05-02)
+
+## 🚀 Features
+
+- **command:** Add rawName property (#751) ([70e1465](https://github.com/sapphiredev/framework/commit/70e1465ed2e2a516d9510b651ff06facfc285010))
+
+# [5.1.0](https://github.com/sapphiredev/framework/compare/v5.0.10...v5.1.0) - (2024-04-06)
+
+## 🚀 Features
+
+- Add option to retry bulk overwrites (#741) ([f8a6ad5](https://github.com/sapphiredev/framework/commit/f8a6ad52fad1f5cdc29c5191f4895b1411fd19e9))
+
+# [5.0.10](https://github.com/sapphiredev/framework/compare/v5.0.9...v5.0.10) - (2024-03-23)
+
+## 🐛 Bug Fixes
+
+- Actually fix type bundle ([7e7074a](https://github.com/sapphiredev/framework/commit/7e7074a12dcb36c58aaf8e0466c7c22787ff5907))
+
+# [5.0.9](https://github.com/sapphiredev/framework/compare/v5.0.8...v5.0.9) - (2024-03-23)
+
+## 🐛 Bug Fixes
+
+- Fixed bundling types ([9c7dfbb](https://github.com/sapphiredev/framework/commit/9c7dfbb615ac4603f8f0f191942f68fc2899dfd8))
+
+# [5.0.8](https://github.com/sapphiredev/framework/compare/v5.0.7...v5.0.8) - (2024-03-23)
+
+## 🐛 Bug Fixes
+
+- Resolved issue with registerOptions not picking up default options correctly (#738) ([2ad21b5](https://github.com/sapphiredev/framework/commit/2ad21b53feab9428033ffea430425bc20d5f19dc))
+- Update sonar project key ([b852496](https://github.com/sapphiredev/framework/commit/b852496a5e79d61b690db09dc99de5b4a1815afe))
+
+## 📝 Documentation
+
+- Improve `UserError` docs (#722) ([4f67c5b](https://github.com/sapphiredev/framework/commit/4f67c5b0ce07648ba8b2e4cd3e0e36d0890b9581))
+
+# [5.0.7](https://github.com/sapphiredev/framework/compare/v5.0.7...v5.0.7) - (2024-01-19)
+
+## 🐛 Bug Fixes
+
+- Update transitive sapphire dependencies ([fba3ce2](https://github.com/sapphiredev/framework/commit/fba3ce2b0ee8539b0fb1cd03edda9ad6dd257dbc))
+- Fixed commonjs typings export mapping (#718) ([d10b4fa](https://github.com/sapphiredev/framework/commit/d10b4fa1aa0052fac0dba2f993849d57cb495852))
+- **computeDifferences:** Check channel types (#719) ([3a1931b](https://github.com/sapphiredev/framework/commit/3a1931bad14087b6ee556b7636c7307d3412a7a8))
+- **deps:** Update all non-major dependencies (#717) ([59f061c](https://github.com/sapphiredev/framework/commit/59f061caece49e6cc50eef6f8bf4a05d44aa0c18))
+- **ApplicationCommandRegistries:** Add the right ids in the right place (#716) ([34193ef](https://github.com/sapphiredev/framework/commit/34193efa717874b0639aeabd11fbdb02b5e43524))
+
+# [5.0.6](https://github.com/sapphiredev/framework/compare/v5.0.6...v5.0.6) - (2024-01-10)
+
+## 🐛 Bug Fixes
+
+- Re-export more types from @sapphire/pieces (#715) ([662f212](https://github.com/sapphiredev/framework/commit/662f212621bf5403b8b9cecba32b6d1100c62741))
+- **deps:** Update all non-major dependencies (#713) ([134ca45](https://github.com/sapphiredev/framework/commit/134ca45f496de6a4928b670eaa8022eda8a56630))
+
+# [5.0.5](https://github.com/sapphiredev/framework/compare/v5.0.5...v5.0.5) - (2023-12-27)
+
+## 🐛 Bug Fixes
+
+- Update transitive sapphire dependencies ([ddf4f15](https://github.com/sapphiredev/framework/commit/ddf4f159f44f4dff1fbb0bd6a9e497751b5c1d5c))
+- **deps:** Update all non-major dependencies (#704) ([9e2dc3b](https://github.com/sapphiredev/framework/commit/9e2dc3bc3dd6fd615e759c35503bf514672efbd4))
+
+# [5.0.4](https://github.com/sapphiredev/framework/compare/v5.0.4...v5.0.4) - (2023-12-09)
+
+## 🐛 Bug Fixes
+
+- Update @sapphire/pieces dependency to have bun load ts files automatically ([47945f5](https://github.com/sapphiredev/framework/commit/47945f52d67c617970373a28b5876562ba32b023))
+
+# [5.0.3](https://github.com/sapphiredev/framework/compare/v5.0.3...v5.0.3) - (2023-12-09)
+
+## 🐛 Bug Fixes
+
+- **normalizeInputs:** Bring back the defaulting I removed (#701) ([0e04eb3](https://github.com/sapphiredev/framework/commit/0e04eb3f13b3928c8348876c27b48d269825bb1d))
+
+# [5.0.2](https://github.com/sapphiredev/framework/compare/v5.0.2...v5.0.2) - (2023-12-05)
+
+## 🐛 Bug Fixes
+
+- Update transitive dependencies ([16af23b](https://github.com/sapphiredev/framework/commit/16af23bcf0666720bc564bcd8932017d71ed371e))
+
+# [5.0.1](https://github.com/sapphiredev/framework/compare/v5.0.1...v5.0.1) - (2023-12-05)
+
+## 🐛 Bug Fixes
+
+- Bump transitive dependencies ([8863d94](https://github.com/sapphiredev/framework/commit/8863d94b8b50c4d0acda0bdc680e2302b6b0d6f1))
+
+# [5.0.0](https://github.com/sapphiredev/framework/compare/v5.0.0...v5.0.0) - (2023-12-04)
+
+## 🚀 Features
+
+- Make ESM properly load ESM endpoint and not masquerade as ESM (#700) ([59b637e](https://github.com/sapphiredev/framework/commit/59b637eb10e00daeaeb8206dab1e81ea245f290b))
+  - 💥 **BREAKING CHANGE:** This ensures that Framework will properly load the files
+from the dist/esm folder. This is BREAKING to ALL plugins that are not
+equally updated to load ESM specific files because they will otherwise
+load the CJS files of @sapphire/framework and every piece will load twice.
+DO NOT use this version without also updating your plugins! Sapphire plugins
+have been released alongside this version, third-party plugins will need
+to be updated by their respective authors!!
+
+# [4.8.5](https://github.com/sapphiredev/framework/compare/v4.8.5...v4.8.5) - (2023-12-03)
+
+## 🐛 Bug Fixes
+
+- Point ESM entrypoint to CJS build (#699) ([5132f62](https://github.com/sapphiredev/framework/commit/5132f6248b5067b30792a83ae43a2fff8ce4f027))
+
+# [4.8.4](https://github.com/sapphiredev/framework/compare/v4.8.4...v4.8.4) - (2023-12-03)
+
+## 🐛 Bug Fixes
+
+- Convert .js imports to .cjs (#698) ([925e2c9](https://github.com/sapphiredev/framework/commit/925e2c983ef22e17708724d4129cbd5fabf45e2a))
+
+# [4.8.3](https://github.com/sapphiredev/framework/compare/v4.8.3...v4.8.3) - (2023-12-02)
+
+## 🏠 Refactor
+
+- Switch to split cjs and esm builds and fully build with tsup (#697) ([2502abb](https://github.com/sapphiredev/framework/commit/2502abb08b90e6676338457f551b51cc8eaa17a0))
+- **Command:** Make type guards check the type ([3a6b259](https://github.com/sapphiredev/framework/commit/3a6b2598e4ccb2a7ed8b3304aa943e3edc165403))
+
+## 🐛 Bug Fixes
+
+- **computeDifference:** Correctly check for extra properties and split up compute difference (#695) ([281d118](https://github.com/sapphiredev/framework/commit/281d11883f3cf33cbc5f878a2d96457f83c03714))
+- **Command:** `parentCategory` failing with `fullCategory.length === 1` ([04bc519](https://github.com/sapphiredev/framework/commit/04bc519745a7b32b9672a64bad01664f26e49631))
+
+## 📝 Documentation
+
+- **Command:** Update `fullCategory`'s outdated docs ([d2d7967](https://github.com/sapphiredev/framework/commit/d2d7967f3a90b43d2fc6116eacb5f79297cdd784))
+
+# [4.8.2](https://github.com/sapphiredev/framework/compare/v4.8.2...v4.8.2) - (2023-11-16)
+
+## 🐛 Bug Fixes
+
+- Register `CoreReady` piece correctly (#690) ([4b99b37](https://github.com/sapphiredev/framework/commit/4b99b377c33c8991ae52174a5bda88a047fb0971))
+
+# [4.8.1](https://github.com/sapphiredev/framework/compare/v4.8.1...v4.8.1) - (2023-11-16)
+
+## 🏠 Refactor
+
+- **cooldown:** Improve error message (#689) ([3dc2019](https://github.com/sapphiredev/framework/commit/3dc20190938b43d48e452ac9647403bde3eff544))
+
+## 📝 Documentation
+
+- Fix link to discord.js (#683) ([2f160ba](https://github.com/sapphiredev/framework/commit/2f160bae0ec6825fdbb1ce26605484171812a11c))
+
+# [4.8.0](https://github.com/sapphiredev/framework/compare/v4.8.0...v4.8.0) - (2023-11-16)
+
+## 🏠 Refactor
+
+- Support latest /pieces type utilities (#687) ([a1907e3](https://github.com/sapphiredev/framework/commit/a1907e305a9f311c686c36a31d4b635c654efcf1))
+- **cooldown:** Use id properties for channelId and guildId (#688) ([633d325](https://github.com/sapphiredev/framework/commit/633d3253ff16a7981b8b67f91fe8612527699dc0))
+- **Listener:** Make loader hooks more resilient (#685) ([d310a8a](https://github.com/sapphiredev/framework/commit/d310a8affb32cbbf275f74d4c014af68da30b570))
+
+## 🐛 Bug Fixes
+
+- Update transitive dependencies ([85c0280](https://github.com/sapphiredev/framework/commit/85c0280b08754475c2fbad8787c33c153bf9c8df))
+- Set `engines.node` to `>=18` ([7cbec42](https://github.com/sapphiredev/framework/commit/7cbec42c0b793cef8c4c60a3b2403262b6bae1df))
+
+## 🚀 Features
+
+- Make all pieces virtual (#686) ([41bcc9b](https://github.com/sapphiredev/framework/commit/41bcc9b50054e920a7dfba3172648b2c20ab9a5a))
+
+# [4.7.2](https://github.com/sapphiredev/framework/compare/v4.7.2...v4.7.2) - (2023-10-23)
+
+## 🏠 Refactor
+
+- Move preconditions resolvers to dedicated files (#679) ([d9bbb28](https://github.com/sapphiredev/framework/commit/d9bbb28159504f53f5b0d262da3f66bbfb3d0bd6))
+- Move command types to its own file (#678) ([832c979](https://github.com/sapphiredev/framework/commit/832c979a5702891f57539db5aded5eba24a9e95b))
+
+# [4.7.1](https://github.com/sapphiredev/framework/compare/v4.7.1...v4.7.1) - (2023-10-16)
+
+## 🏠 Refactor
+
+- Expose `runInTypeIsSpecificsObject` as public static method on `Command` ([6bbe2c1](https://github.com/sapphiredev/framework/commit/6bbe2c10315a6e5f8277c46fa627fef90117acd0))
+
 # [4.7.0](https://github.com/sapphiredev/framework/compare/v4.7.0...v4.7.0) - (2023-10-15)
 
 ## 🚀 Features

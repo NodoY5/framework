@@ -1,3 +1,4 @@
+import { container } from '@sapphire/pieces';
 import {
 	ChatInputCommandInteraction,
 	ContextMenuCommandInteraction,
@@ -78,6 +79,12 @@ export class CorePrecondition extends AllFlowsPrecondition {
 						.map((perm) => ClientPrecondition.readablePermissions[perm])
 						.join(', ')}`,
 					context: { missing }
-			  });
+				});
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'UserPermissions',
+	piece: CorePrecondition,
+	store: 'preconditions'
+});

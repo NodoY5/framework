@@ -1,10 +1,11 @@
+import { container } from '@sapphire/pieces';
 import type { ContextMenuCommandInteraction } from 'discord.js';
-import type { ContextMenuCommand } from '../../../lib/structures/Command';
 import { Listener } from '../../../lib/structures/Listener';
+import type { ContextMenuCommand } from '../../../lib/types/CommandTypes';
 import { Events } from '../../../lib/types/Events';
 
 export class CoreListener extends Listener<typeof Events.PossibleContextMenuCommand> {
-	public constructor(context: Listener.Context) {
+	public constructor(context: Listener.LoaderContext) {
 		super(context, { event: Events.PossibleContextMenuCommand });
 	}
 
@@ -37,3 +38,9 @@ export class CoreListener extends Listener<typeof Events.PossibleContextMenuComm
 		});
 	}
 }
+
+void container.stores.loadPiece({
+	name: 'CorePossibleContextMenuCommand',
+	piece: CoreListener,
+	store: 'listeners'
+});

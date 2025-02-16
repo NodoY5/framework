@@ -1,3 +1,4 @@
+import { container } from '@sapphire/pieces';
 import { isNullish } from '@sapphire/utilities';
 import {
 	BaseInteraction,
@@ -54,11 +55,9 @@ export class CorePrecondition extends AllFlowsPrecondition {
 	): AllFlowsPrecondition.AsyncResult {
 		const required = context.permissions ?? new PermissionsBitField();
 
-		const channel = await this.fetchChannelFromInteraction(interaction);
+		const availablePermissions = await this.getAvailablePermissions(interaction);
 
-		const permissions = await this.getPermissionsForChannel(channel, interaction);
-
-		return this.sharedRun(required, permissions, 'chat input');
+		return this.sharedRun(required, availablePermissions, 'chat input');
 	}
 
 	public async contextMenuRun(
@@ -68,11 +67,9 @@ export class CorePrecondition extends AllFlowsPrecondition {
 	): AllFlowsPrecondition.AsyncResult {
 		const required = context.permissions ?? new PermissionsBitField();
 
-		const channel = await this.fetchChannelFromInteraction(interaction);
+		const availablePermissions = await this.getAvailablePermissions(interaction);
 
-		const permissions = await this.getPermissionsForChannel(channel, interaction);
-
-		return this.sharedRun(required, permissions, 'context menu');
+		return this.sharedRun(required, availablePermissions, 'context menu');
 	}
 
 	private async getPermissionsForChannel(channel: TextBasedChannel, messageOrInteraction: Message | BaseInteraction) {
@@ -109,7 +106,18 @@ export class CorePrecondition extends AllFlowsPrecondition {
 						.map((perm) => CorePrecondition.readablePermissions[perm])
 						.join(', ')}`,
 					context: { missing }
-			  });
+				});
+	}
+
+	private async getAvailablePermissions(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
+		if (interaction.channel) {
+			if (interaction.channel.isDMBased()) return this.dmChannelPermissions;
+
+			const channel = await this.fetchChannelFromInteraction(interaction);
+			return this.getPermissionsForChannel(channel, interaction);
+		}
+
+		return interaction.appPermissions;
 	}
 
 	public static readonly readablePermissions: Record<PermissionsString, string> = {
@@ -119,6 +127,8 @@ export class CorePrecondition extends AllFlowsPrecondition {
 		BanMembers: 'Ban Members',
 		ChangeNickname: 'Change Nickname',
 		Connect: 'Connect',
+		CreateEvents: 'Create Events',
+		CreateGuildExpressions: 'Create Expressions',
 		CreateInstantInvite: 'Create Instant Invite',
 		CreatePrivateThreads: 'Create Private Threads',
 		CreatePublicThreads: 'Create Public Threads',
@@ -144,12 +154,14 @@ export class CorePrecondition extends AllFlowsPrecondition {
 		RequestToSpeak: 'Request to Speak',
 		SendMessages: 'Send Messages',
 		SendMessagesInThreads: 'Send Messages in Threads',
+		SendPolls: 'Create Polls',
 		SendTTSMessages: 'Send TTS Messages',
 		SendVoiceMessages: 'Send Voice Messages',
 		Speak: 'Speak',
 		Stream: 'Stream',
 		UseApplicationCommands: 'Use Application Commands',
 		UseEmbeddedActivities: 'Start Activities',
+		UseExternalApps: 'Use External Apps',
 		UseExternalEmojis: 'Use External Emojis',
 		UseExternalSounds: 'Use External Sounds',
 		UseExternalStickers: 'Use External Stickers',
@@ -161,3 +173,9 @@ export class CorePrecondition extends AllFlowsPrecondition {
 		ViewGuildInsights: 'View Guild Insights'
 	};
 }
+
+void container.stores.loadPiece({
+	name: 'ClientPermissions',
+	piece: CorePrecondition,
+	store: 'preconditions'
+});
